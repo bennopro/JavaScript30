@@ -38,17 +38,37 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const filteredInventors = inventors.filter((element) => (element.year >= 1500 && element.year < 1600));
+    console.log(filteredInventors);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    let inventorNames = inventors.map((element) => element.first+" "+element.last);
+    inventorNames = inventorNames.map(e => e.split(" "));
+    console.log(inventorNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    let inventorsOldest = inventors.sort((a, b) => a.year - b.year)
+    console.log(inventorsOldest);
+
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const sumOfYears = inventors.reduce((sum, current) => sum + current.passed - current.year, 0);
+    console.log(sumOfYears);
+
+    console.log(inventors);
 
     // 5. Sort the inventors by years lived
+    let sortedByAge = inventors.sort((a, b) => {
+      return (a.passed - a.year) - (b.passed - b.year);
+    }); 
+    sortedByAge = sortedByAge.reverse();
+    console.log(sortedByAge);
+    const age = sortedByAge.map(e => e.passed -e.year);
+    console.log(age);
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -56,10 +76,37 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const splitNames = people.map(e => e.split(", "));
+    console.log(splitNames);
+    const sortedAlphabetically = splitNames.sort((a, b) => a[0].localeCompare(b[0]));
+    console.log(sortedAlphabetically);
+    const sortedNames = sortedAlphabetically.map(nameArray => nameArray.join(", "));
+    console.table(sortedNames);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', "truck", 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+      //check for individual items in the array
+      //count each individual item
+    let removeDuplicates = data.filter((value, index) => data.indexOf(value)===index);
+    console.log(removeDuplicates) ;
+
+    const initialCounts = removeDuplicates.reduce((acc, item) => {
+      acc[item] = 0;
+      return acc;
+  }, {});
+  console.log(initialCounts)
+  
+  // Count occurrences in the data array
+  const counts = data.reduce((acc, item) => {
+      if (item in acc) {
+          acc[item] += 1;
+      }
+      return acc;
+  }, initialCounts);
+  
+  console.log(counts);
+      
 
   </script>
 </body>
